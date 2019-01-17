@@ -2,26 +2,26 @@
 
 namespace Sf4\Populator\Traits;
 
-use Sf4\Populator\Populator;
+use Sf4\Populator\PopulatorInterface;
 
 trait PopulatorTrait
 {
 
-    /** @var Populator|null $populator */
+    /** @var PopulatorInterface|null $populator */
     protected $populator;
 
     /**
-     * @return Populator|null
+     * @return PopulatorInterface|null
      */
-    public function getPopulator(): ?Populator
+    public function getPopulator(): ?PopulatorInterface
     {
         return $this->populator;
     }
 
     /**
-     * @param Populator|null $populator
+     * @param PopulatorInterface|null $populator
      */
-    public function setPopulator(?Populator $populator): void
+    public function setPopulator(?PopulatorInterface $populator): void
     {
         $this->populator = $populator;
     }
