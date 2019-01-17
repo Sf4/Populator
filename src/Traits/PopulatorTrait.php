@@ -7,21 +7,21 @@ use Sf4\Populator\Populator;
 trait PopulatorTrait
 {
 
-    /** @var Populator $populator */
+    /** @var Populator|null $populator */
     protected $populator;
 
     /**
-     * @return Populator
+     * @return Populator|null
      */
-    public function getPopulator(): Populator
+    public function getPopulator(): ?Populator
     {
         return $this->populator;
     }
 
     /**
-     * @param Populator $populator
+     * @param Populator|null $populator
      */
-    public function setPopulator(Populator $populator): void
+    public function setPopulator(?Populator $populator): void
     {
         $this->populator = $populator;
     }
