@@ -2,7 +2,7 @@
 
 namespace Sf4\Populator;
 
-class Populator
+class Populator implements PopulatorInterface
 {
     /**
      * Context Factory
