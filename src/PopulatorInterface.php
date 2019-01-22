@@ -20,4 +20,12 @@ interface PopulatorInterface
      * @throws \ReflectionException
      */
     public function populate($data, $object);
+
+    /**
+     * Unpopulates the given object to array
+     *
+     * @param mixed $object Object
+     * @return array
+     */
+    public function unpopulate($object);
 }

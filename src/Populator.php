@@ -48,4 +48,29 @@ class Populator implements PopulatorInterface
         $context = $this->factory->build($object);
         return $this->hydrator->hydrate($data, $object, $context);
     }
+
+    /**
+     * @param mixed $object Object
+     * @return array
+     */
+    public function unpopulate($object)
+    {
+        if (!is_object($object)) {
+            throw new \InvalidArgumentException(sprintf("Class %s does not exist", $object));
+        }
+        $data = [];
+        try {
+            $reflection = new \ReflectionClass($object);
+        } catch (\ReflectionException $e) {
+            return $data;
+        }
+
+        $properties = $reflection->getProperties();
+        /** @var \ReflectionProperty $property */
+        foreach($properties as $property) {
+            $data[$property->getName()] = $property->getValue($object);
+        }
+
+        return $data;
+    }
 }
