@@ -68,6 +68,7 @@ class Populator implements PopulatorInterface
         $properties = $reflection->getProperties();
         /** @var \ReflectionProperty $property */
         foreach($properties as $property) {
+            $property->setAccessible(true);
             $data[$property->getName()] = $property->getValue($object);
         }
 
