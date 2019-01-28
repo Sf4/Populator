@@ -58,6 +58,11 @@ class Populator implements PopulatorInterface
         if (!is_object($object)) {
             throw new \InvalidArgumentException(sprintf("Class %s does not exist", $object));
         }
+
+        if($object instanceof \stdClass) {
+            return get_object_vars($object);
+        }
+
         $data = [];
         try {
             $reflection = new \ReflectionClass($object);
