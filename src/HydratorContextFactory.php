@@ -2,12 +2,15 @@
 
 namespace Sf4\Populator;
 
+use Doctrine\Common\Annotations\AnnotationReader;
+
 class HydratorContextFactory implements HydratorContextFactoryInterface
 {
-     /**
+    /**
      * @param $class
      * @return HydratorContext
      * @throws \ReflectionException
+     * @throws \Doctrine\Common\Annotations\AnnotationException
      */
     public function build($class)
     {
@@ -20,8 +23,15 @@ class HydratorContextFactory implements HydratorContextFactoryInterface
         $context = new HydratorContext;
         $context->setClass($class);
         $reflection = new \ReflectionClass($class);
+        $annotationReader = new AnnotationReader();
         foreach ($reflection->getProperties() as $property) {
+            $annotations = $annotationReader->getPropertyAnnotations($property);
             $metadata = new PropertyMetadata($property->getName());
+            foreach($annotations as $annotation) {
+                if ($annotation instanceof PopulatorAnnotation) {
+                    $annotation->process($metadata, $this);
+                }
+            }
             $context->addProperty($metadata);
         }
         return $context;
